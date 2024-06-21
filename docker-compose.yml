@@ -29,6 +29,9 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: 19ZoLYV7cmFz
+            MONGO_INITDB_DATABASE: shop
+        volumes:
+            - ./docker/mongo-init-scripts:/docker-entrypoint-initdb.d
 
     mongo-express:
         image: mongo-express
@@ -41,10 +44,11 @@ services:
             ME_CONFIG_MONGODB_URL: mongodb://root:19ZoLYV7cmFz@mongo:27017/
             ME_CONFIG_BASICAUTH: "false"
 
+
 volumes:
     symfony_app_var:
     symfony_app_vendor:
-    db_app:
+  
 
 networks:
     symfony_app:
