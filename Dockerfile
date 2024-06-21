@@ -1,5 +1,6 @@
 FROM php:8.2-fpm-buster
-ARG TIMEZONE
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 COPY ./docker/php/php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
 
