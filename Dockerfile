@@ -30,3 +30,8 @@ COPY . /var/www/html/
 
 WORKDIR /var/www/html
 
+RUN curl -sS https://getcomposer.org/installer | php \
+    && php composer.phar install \ 
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 777 /var/www/html/var
+
