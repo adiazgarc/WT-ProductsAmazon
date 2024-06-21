@@ -22,7 +22,9 @@ RUN apt-get update && apt-get install -y \
     acl \
     && echo 'alias sf="php bin/console"' >> ~/.bashrc
 
+RUN apt-get install -y autoconf pkg-config libssl-dev
 RUN pecl install mongodb
+
 
 # install mongodb-org-tools - mongodb tools for up-to-date mongodb that can handle --uri=mongodb+srv: flag
 #RUN apt-get update && apt-get install -y gnupg software-properties-common && \
