@@ -26,12 +26,16 @@ services:
     mongo:
         image: mongo
         restart: always
+        ports:
+            - "27017:27017"
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: 19ZoLYV7cmFz
             MONGO_INITDB_DATABASE: shop
         volumes:
             - ./docker/mongo-init-scripts:/docker-entrypoint-initdb.d
+        networks:
+            - symfony_app
 
     mongo-express:
         image: mongo-express
@@ -43,7 +47,8 @@ services:
             ME_CONFIG_MONGODB_ADMINPASSWORD: 19ZoLYV7cmFz
             ME_CONFIG_MONGODB_URL: mongodb://root:19ZoLYV7cmFz@mongo:27017/
             ME_CONFIG_BASICAUTH: "false"
-
+        networks:
+            - symfony_app
 
 volumes:
     symfony_app_var:
