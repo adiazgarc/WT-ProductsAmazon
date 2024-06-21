@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+    php:
+        build: .
+        volumes:
+            - ./:/var/www/html:cached
+            - symfony_app_var:/var/www/html/var
+            - symfony_app_vendor:/var/www/html/vendor
+        networks:
+            - symfony_app
+    nginx:
+        build: 
+            context: ./docker/nginx
+        volumes:
+            - ./:/var/www/html:cached
+            - symfony_app_var:/var/www/html/var
+            - symfony_app_vendor:/var/www/html/vendor
+        depends_on:
+            - php
+        ports:
+            - 80:80
+        networks:
+            - symfony_app
+
+volumes:
+    symfony_app_var:
+    symfony_app_vendor:
+    db_app:
+
+networks:
+    symfony_app:
