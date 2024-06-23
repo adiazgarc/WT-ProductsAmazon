@@ -15,8 +15,12 @@
         "symfony/property-access": "7.1.*",
         "symfony/runtime": "7.1.*",
         "symfony/serializer": "7.1.*",
+        "symfony/stimulus-bundle": "^2.18",
         "symfony/twig-bundle": "7.1.*",
-        "symfony/yaml": "7.1.*"
+        "symfony/ux-turbo": "^2.18",
+        "symfony/webpack-encore-bundle": "^2.1",
+        "symfony/yaml": "7.1.*",
+        "twbs/bootstrap": "^5.3"
     },
     "config": {
         "allow-plugins": {

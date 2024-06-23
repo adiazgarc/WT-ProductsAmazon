@@ -1,0 +1,19 @@
+body {
+    background-color: #eee;
+}
+
+.img-product-principal{
+    max-width: 100%;
+}
+.img-logo-amazon{
+    max-width: 100%;
+}
+.box-row{
+    margin: 30px;
+}
+.box-border{
+    border: 1px solid #999;
+    background-color: #fff;;
+    padding: 50px;
+}
+@import "../../node_modules/bootstrap";
