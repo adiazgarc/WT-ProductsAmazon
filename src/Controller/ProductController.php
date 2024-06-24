@@ -8,28 +8,69 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
+
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
+
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 class ProductController extends AbstractController
 {
-    /*#[Route('/product', name: 'app_product')]
-    public function index(): JsonResponse
-    {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ProductController.php',
-        ]);
-    }*/
+    /**
+     * @var \Doctrine\ODM\MongoDB\DocumentManager
+     */
+    private $_dm;
+
+    public function __construct()
+    { 
+    }
+
 
     #[Route('/products', name: 'new_product', methods: ['GET'])]
-    public function new(DocumentManager $documentManager)
+    public function new(DocumentManager $dm)
     {
-        $product = new Product("1234");
+
+        $products = $dm->getRepository(Product::class)->findAll();
+
+        //If it is empty (the cron has not yet loaded products)
+        if (count($products)<1) { 
+            $this->loadData($dm);
+            $products = $dm->getRepository(Product::class)->findAll();
+        }
+
+        return $this->render('products.html.twig', array('products'=> $products));
 
 
-        $documentManager->persist($product);
-        $documentManager->flush();
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ProductController.php',
-        ]);
+    }
+
+    public function loadData(DocumentManager $dm){      
+      
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $filesystem = new Filesystem();
+
+        //Empty collection for new load all products
+        $collection = $dm->getDocumentCollection(Product::class);
+        $collection->drop();
+
+        //Read json
+        $contents = $filesystem->readFile('/var/www/html/data/amazon.json');
+        $jsonData = json_decode($contents, true);
+
+        //Save every product
+        foreach ($jsonData["SearchResult"]["Items"] as $key => $value) {
+            $product = $serializer->deserialize(json_encode($value), Product::class, 'json');
+            $dm->persist($product);
+            $dm->flush();
+        }
+
     }
 }
