@@ -83,7 +83,7 @@ Password: 123
 
 ## Deployment (Ya realizada instalación )
 
-1 - Levantamos el contenedores
+1 - Levantamos el contenedor
 
 **Levantar contenedor**
 ```bash
