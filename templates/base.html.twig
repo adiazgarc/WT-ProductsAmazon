@@ -13,8 +13,13 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-8">
                         <img src="{{ asset('img/logo-ecommerce.png') }}" alt="Barras de sonido" class="img-logo"/>
+                    </div>
+                    <div class="col-4">
+                        {% if app.user %}
+                            Has accedido como {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Salir</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
