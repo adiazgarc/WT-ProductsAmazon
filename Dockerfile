@@ -37,11 +37,11 @@ RUN node --version
 RUN npm --version
 
 # install mongodb-org-tools - mongodb tools for up-to-date mongodb that can handle --uri=mongodb+srv: flag
-#RUN apt-get update && apt-get install -y gnupg software-properties-common && \
-    #curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add - && \
-    #add-apt-repository 'deb https://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main' && \
-    #apt-get update && \
-    #apt-get install -y mongodb-org-tools
+RUN apt-get update && apt-get install -y gnupg software-properties-common && \
+    curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add - && \
+    add-apt-repository 'deb https://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main' && \
+    apt-get update && \
+    apt-get install -y mongodb-org-tools
 
 RUN docker-php-ext-configure gd --with-jpeg --with-freetype 
 
