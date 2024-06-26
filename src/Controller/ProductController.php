@@ -4,20 +4,16 @@ namespace App\Controller;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use App\Document\Product;
+use App\Document\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
-
-
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Path;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ProductController extends AbstractController
 {
     /**
@@ -25,12 +21,16 @@ class ProductController extends AbstractController
      */
     private $_dm;
 
+    private $passwordEncoder;
+
+
+
     public function __construct()
     { 
     }
 
-
-    #[Route('/products', name: 'new_product', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN', message: 'You are not allowed to access the product list.')]
+    #[Route('/', name: 'new_product', methods: ['GET'])]
     public function new(DocumentManager $dm)
     {
 
@@ -42,8 +42,7 @@ class ProductController extends AbstractController
             $products = $dm->getRepository(Product::class)->findAll();
         }
 
-        return $this->render('products.html.twig', array('products'=> $products));
-
+        return $this->render('catalog/products.html.twig', array('products'=> $products));
 
     }
 
