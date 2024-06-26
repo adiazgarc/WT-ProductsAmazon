@@ -13,14 +13,16 @@ El JSON que Amazon genera para un listado de productos contiene toda la informac
 ## Entorno
 
 Configuración local puerto 80 
+
 http://localhost/
 
 Usuario pruebas DEMO:
+
 Email: abc@abc.com
+
 Password: 123
 
-
-## Deployment
+## Deployment y instalación (Primera vez)
 
 1 - Clonamos el proyecto
 
@@ -28,16 +30,11 @@ Password: 123
   git clone https://github.com/adiazgarc/WT-ProductsAmazon.git
 ```
 
-2 - Creamos los contenedores
+2 - Creamos el contenedor
 
-**Primera vez**
+**Crear contenedor**
 ```bash
   docker-compose up -d --build
-```
-
-**Siguientes ejecuciones (no es necesario build)**
-```bash
-  docker-compose up -d
 ```
 
 3 - Actualizar dependencias y permisos
@@ -81,4 +78,14 @@ Password: 123
   php bin/console messenger:consume
 ```
 
+5 - Acceder desde navegador a http://localhost/
 
+
+## Deployment (Ya realizada instalación )
+
+1 - Levantamos el contenedores
+**Levantar contenedor**
+```bash
+  docker-compose up -d
+```
+2 - Acceder desde navegador a http://localhost/
