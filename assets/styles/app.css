@@ -6,7 +6,8 @@ body {
     max-width: 100%;
 }
 .img-logo-amazon{
-    max-width: 100%;
+    width: 100%;
+    max-width: 180px;
 }
 
 .img-logo{
@@ -15,11 +16,83 @@ body {
 }
 
 .box-row{
-    margin: 30px 0px;
+    margin-top: 30px;
 }
 .box-border{
     border: 1px solid #999;
     background-color: #fff;;
     padding: 25px;
+}
+h2{
+    font-size: 20px;
+    font-weight: bold;
+}
+.col-center{
+    text-align: center;
+}
+.feature-hide{
+    display: none;
+}
+.feature-show{
+    display: block;
+}
+
+.box-details{
+    max-width: 140px;
+    float: left;
+    font-size: 13px;
+    text-align: center;
+    margin-right:20px;
+}
+.box-details-clear{
+    clear: both;
+}
+.box-ranking{
+    font-size: 14px;
+    font-weight: bold;
+    background: #ddd;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding-top: 5px;
+    position: absolute;
+    margin-left: -25px;
+    margin-top: -25px;
+}
+.box-ranking-best-option{
+    font-size: 14px;
+    font-weight: bold;
+    background: #66E057;
+    height: 35px;
+    text-align: center;
+    padding-top: 5px;
+    position: absolute;
+    margin-left: -25px;
+    margin-top: -25px;
+    color: #fff;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.box-ranking-best-rating{
+    font-size: 14px;
+    font-weight: bold;
+    background: #3AA22D;
+    height: 35px;
+    text-align: center;
+    padding-top: 5px;
+    position: absolute;
+    margin-left: -25px;
+    margin-top: -25px;
+    color: #fff;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.feature-hide{
+    display: none;
+}
+
+.cursor-pointer{
+    cursor: pointer;
 }
 @import "../../node_modules/bootstrap";

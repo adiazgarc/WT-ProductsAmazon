@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <h1>
+                    Las 10 Mejores Barras de Sonido En España
+                </h1>
+            </div>
+        </div>
+
+        {% for product in products %}
+        <div class="row box-row">
+            <div class="col-3  box-border">
+                
+                {% if loop.index == 1 %}
+                    <div class="box-ranking-best-option" >#{{ loop.index }} MEJOR OPCIÓN 2024</div>
+                {% elseif loop.index == 3 %} 
+                    <div class="box-ranking-best-rating" >#{{ loop.index }} MEJOR VALOR 2024</div>
+                {% else %} 
+                    <div class="box-ranking" >#{{ loop.index }}</div>
+                {% endif %} 
+
+                <img src='{{ product.images.primary.large.url|e }}' class="img-product-principal"/>             
+            </div>
+            <div class="col-5  box-border">
+                <div><h2>{{  product.itemInfo.title.displayValue|u.truncate(70, '...') }}</h2></div>
+                <div class="text-secondary">{{  product.itemInfo.byLineInfo.brand.displayValue|e  }}</div>
+
+                <div class="alert alert-secondary box-details">{{  product.offers.listings.price.savings.percentage|e  }}% Descuento</div>
+                
+                {% if  product.offers.listings.deliveryInfo.isFreeShippingEligible == true %}
+                     <div class="alert alert-secondary box-details">Envio gratis</div>
+                {% endif %}      
+
+                <div class="box-details-clear"></div>         
+                
+                <div class="text-primary cursor-pointer"  onclick="feature('feature-{{ loop.index }}')">Mostrar mas </div>
+
+            </div>
+            <div class="col-4  box-border col-center">     
+                <a href="{{  product.DetailPageURL|e  }}" type="button" class="btn btn-warning" target="_blank">Comprar ahora ></a><br/><br/>
+                <img src="{{ asset('img/amazon-logo-PNG.png') }}" alt="Amazon" class="img-logo-amazon"/>
+            </div>
+        </div>
+        <div class="row feature-hide" id="feature-{{ loop.index }}">
+            <div class="col-8 box-border" >
+                <ul>
+                {% for feature in product.itemInfo.features.displayValues %}
+                     <li>{{ feature |e  }} </li>
+                {% endfor %}
+                </ul>
+            </div>
+             <div class="col-4  box-border col-center">     
+                <a href="{{  product.DetailPageURL|e  }}" type="button" class="btn btn-warning" target="_blank">Comprar ahora ></a><br/><br/>
+                <img src="{{ asset('img/amazon-logo-PNG.png') }}" alt="Amazon" class="img-logo-amazon"/>
+            </div>
+        </div>
+
+         {% endfor %}
+
+</div>
+{% endblock %}

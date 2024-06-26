@@ -29,6 +29,16 @@
 
         {{ encore_entry_script_tags('app') }}
 
+        <script>
 
+            function feature(element) {
+                var x = document.getElementById(element);
+                if (x.style.display === "inline-flex") {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "inline-flex";
+                }
+            }
+        </script>
     </body>
 </html>
