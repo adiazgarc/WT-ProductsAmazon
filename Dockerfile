@@ -36,13 +36,6 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN node --version
 RUN npm --version
 
-# install mongodb-org-tools - mongodb tools for up-to-date mongodb that can handle --uri=mongodb+srv: flag
-RUN apt-get update && apt-get install -y gnupg software-properties-common && \
-    curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add - && \
-    add-apt-repository 'deb https://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main' && \
-    apt-get update && \
-    apt-get install -y mongodb-org-tools
-
 RUN docker-php-ext-configure gd --with-jpeg --with-freetype 
 
 RUN docker-php-ext-install \
@@ -52,7 +45,5 @@ COPY . /var/www/html/
 
 WORKDIR /var/www/html
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && chown -R www-data:www-data /var/www/html \
-    && chmod -R 777 /var/www/html/var
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
 
