@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+    php:
+        build: .
+        volumes:
+            - ./:/var/www/html:cached
+            - symfony_app_var:/var/www/html/var
+            - symfony_app_vendor:/var/www/html/vendor
+        networks:
+            - symfony_app
+    nginx:
+        build: 
+            context: ./docker/nginx
+        volumes:
+            - ./:/var/www/html:cached
+            - symfony_app_var:/var/www/html/var
+            - symfony_app_vendor:/var/www/html/vendor
+        depends_on:
+            - php
+        ports:
+            - 80:80
+        networks:
+            - symfony_app
+
+    mongo:
+        image: mongo
+        restart: always
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: 19ZoLYV7cmFz
+            MONGO_INITDB_DATABASE: shop
+        volumes:
+            - ./docker/mongo-init-scripts:/docker-entrypoint-initdb.d
+        networks:
+            - symfony_app
+
+    mongo-express:
+        image: mongo-express
+        restart: always
+        ports:
+        - 8081:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: 19ZoLYV7cmFz
+            ME_CONFIG_MONGODB_URL: mongodb://root:19ZoLYV7cmFz@mongo:27017/
+            ME_CONFIG_BASICAUTH: "false"
+        networks:
+            - symfony_app
+
+volumes:
+    symfony_app_var:
+    symfony_app_vendor:
+  
+
+networks:
+    symfony_app:
