@@ -32,25 +32,39 @@ El JSON que Amazon genera para un listado de productos contiene toda la informac
 
 3 - Actualizar dependencias y permisos
 
-**Acceder al contenedor**
+**Acceder al contenedor (Mac)**
 ```bash
   docker exec -it wt-productsamazon_php_1 bash
 ```
+**Acceder al contenedor Linux)**
+```bash
+  docker exec -it wt-productsamazon-php-1 bash
+```
 
-**Permisos (solo linux)**
+**Permisos (Dentro del contenedor)**
 ```bash
   chown -R www-data:www-data /var/www/html
 ```
+
+**Permisos (solo linux, dentro del contenedor)**
 ```bash
   chmod -R 777 /var/www/html/var
 ```
 
-**Actualizar dependecias **
+**Actualizar dependecias (Dentro del contenedor)**
 ```bash
-  composer update
+  npm install --global yarn
+```
+**Actualizar dependecias Webpack (Dentro del contenedor)**
+```bash
+  yarn encore dev
 ```
 
-4 - Levantar CRON actualizar productos (ejecucion todos los dias a las 00)php bin/
 ```bash
-  console messenger:consume
+  yarn encore dev
+```
+
+4 - Levantar CRON actualizar productos (ejecucion todos los dias a las 00)php bin/ (Dentro del contenedor)
+```bash
+  php bin/console messenger:consume
 ```
