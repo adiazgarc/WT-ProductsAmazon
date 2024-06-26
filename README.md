@@ -84,6 +84,7 @@ Password: 123
 ## Deployment (Ya realizada instalación )
 
 1 - Levantamos el contenedores
+
 **Levantar contenedor**
 ```bash
   docker-compose up -d
