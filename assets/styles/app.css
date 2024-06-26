@@ -8,6 +8,12 @@ body {
 .img-logo-amazon{
     max-width: 100%;
 }
+
+.img-logo{
+    padding: 30px 0px;
+    max-width: 100px;
+}
+
 .box-row{
     margin: 30px 0px;
 }

@@ -3,20 +3,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Test Application{% endblock %}</title>
+        <title>{% block title %}Barras de sonido{% endblock %}</title>
+
+        {{ encore_entry_link_tags('app') }} 
+
     </head>
     <body>
-        <div id="sidebar">
-            {% block sidebar %}
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/blog">Blog</a></li>
-                </ul>
-            {% endblock %}
-        </div>
-
         <div id="content">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <img src="{{ asset('img/logo-ecommerce.png') }}" alt="Barras de sonido" class="img-logo"/>
+                    </div>
+                </div>
+            </div>
+            
             {% block body %}{% endblock %}
         </div>
+
+        {{ encore_entry_script_tags('app') }}
+
+
     </body>
 </html>
